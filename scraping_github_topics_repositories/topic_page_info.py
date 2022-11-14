@@ -5,21 +5,7 @@ import pandas as pd
 import os
 
 base_url = "https://github.com"
-first_topic_page_url = topic_info.topic_links[0]
-response = requests.get(first_topic_page_url)
-topic_doc = BeautifulSoup(response.text, "html.parser")
 
-
-username_repo_tags = topic_doc.find_all(
-    "h3", {"class": "f3 color-fg-muted text-normal lh-condensed"}
-)
-a_tags = username_repo_tags[0].find_all("a")
-first_username = a_tags[0].text.strip()
-first_repo = a_tags[1].text.strip()
-first_repo_url = base_url + a_tags[1]["href"]
-
-project_stars = topic_doc.find_all("span", {"class": "Counter js-social-count"})
-first_stars = project_stars[0].text
 
 # Given a string number that might end in "k" for thousand
 # Returns string as integer
@@ -41,17 +27,6 @@ def get_repo_info(h3_tag, star_tag):
     url = base_url + a_tags[1]["href"]
     stars = parse_star_count(star_tag.text.strip())
     return username, repo, url, stars
-
-
-topic_repos_dict = {"username": [], "repo_name": [], "repo_url": [], "stars": []}
-for i in range(len(username_repo_tags)):
-    repo_info = get_repo_info(username_repo_tags[i], project_stars[i])
-    topic_repos_dict["username"].append(repo_info[0])
-    topic_repos_dict["repo_name"].append(repo_info[1])
-    topic_repos_dict["repo_url"].append(repo_info[2])
-    topic_repos_dict["stars"].append(repo_info[3])
-
-# topic_repos_df = pd.DataFrame(topic_repos_dict)
 
 
 def get_topic_page(topic_url):
@@ -85,10 +60,6 @@ def get_topic_repos(topic_doc):
         topic_repos_dict["repo_url"].append(repo_info[2])
         topic_repos_dict["stars"].append(repo_info[3])
     return pd.DataFrame(topic_repos_dict)
-
-
-doc9 = get_topic_page(topic_info.topic_links[22])
-print(get_topic_repos(doc9))
 
 
 def scrape_topic(topic_url, path):
