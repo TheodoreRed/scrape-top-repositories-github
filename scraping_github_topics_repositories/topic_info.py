@@ -48,8 +48,10 @@ def scrape_topics():
     if response.status_code != 200:
         raise Exception("Failed to load page {}".format(topics_url))
 
+    with open("topics_html_source.html", "r", encoding="utf-8") as f:
+        html_str = f.read()
     # Creates bs4 object to be passed to get 3 pieces of information in a dictionary
-    doc = BeautifulSoup(response.text, "html.parser")
+    doc = BeautifulSoup(html_str, "html.parser")
     topics_dict = {
         "title": get_topic_title(doc),
         "description": get_topic_desc(doc),
@@ -57,3 +59,6 @@ def scrape_topics():
     }
     # Passes dictionary and returns a pandas dataframe
     return pd.DataFrame(topics_dict)
+
+
+print(scrape_topics())
