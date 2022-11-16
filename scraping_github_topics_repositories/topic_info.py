@@ -42,7 +42,7 @@ def get_topic_url(doc):
 # Returns a pandas dataframe
 def scrape_topics():
     topics_url = "https://github.com/topics"
-    response = requests.get(topics_url)
+    response = requests.get(topics_url, headers={"User-Agent": "Mozilla/5.0"})
 
     # If the request fails then stops the program
     if response.status_code != 200:
