@@ -97,4 +97,5 @@ def scrape_topics_repos():
 
 
 # Runs scraper
+# TODO: run get_all_html_source.py right here before scrpe topic repos
 scrape_topics_repos()
