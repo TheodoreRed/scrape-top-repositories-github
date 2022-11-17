@@ -30,10 +30,11 @@ Repo Name,Username,Stars,Repo URL
 - That will get a list of topic info and use a loop and `iterrows()` to combine the few methods 
 - Which will create a directory to put the CSV file for every topic
 ## Summary
-- Scrape a list of topics together
-- For each element in list find the top repos and the username, link, and stars associated with each
-- After finding associated data, put together in a pandas dataframe and convert to CSV
-- Put all the CSV files in a directory of their own
+
 #### Ideas For future work
 - Take it a step further and move to the repo link or username link
 - Get data on what language is used commonly in a topic, how many watching, how many forks, # of commits
+# Credit & Attribution
+- Used this [__Base Source Code__](https://jovian.ai/aakashns-6l3/scraping-github-topics-repositories) while following the [__Jovian Python Web Scraping Project__](https://www.youtube.com/watch?v=RKsLLG-bzEY&t=808s) youtube video.
+- Stack Overflow [__question__](https://stackoverflow.com/questions/74464469/how-to-use-python-with-selenium-to-click-the-load-more-button-on-https-gith/74465575#74465575) about clicking load more was answered by [__Prophet__](https://stackoverflow.com/users/3485434/prophet?tab=profile)
+
