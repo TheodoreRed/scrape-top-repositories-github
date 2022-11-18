@@ -4,7 +4,8 @@ import requests
 import pandas as pd
 import os
 
-base_url = "https://github.com"
+# Global variable
+every_repo_url = []
 
 
 # Given a string number that might end in "k" for thousand
@@ -26,7 +27,7 @@ def get_repo_info(h3_tag, star_tag):
     repo = a_tags[1].text.strip()
 
     # Creates repositories URL
-    url = base_url + a_tags[1]["href"]
+    url = "https://github.com" + a_tags[1]["href"]
     # Gets star tag string and uses parse_star_count() to convert to correct type
     stars = parse_star_count(star_tag.text.strip())
     return username, repo, url, stars
@@ -74,8 +75,19 @@ def scrape_topic(topic_url, path):
     # get_topic_page() is passed a url from topics.csv file and returnsa BeautifulSoup object
     # get_topic_repos() is passed that bs4 object where it extracts the data
     topic_df = get_topic_repos(get_topic_page(topic_url))
+    # Fills a list of every repository url
+    get_all_repo_urls(topic_df)
     # Extracted data is converted to a csv file
     topic_df.to_csv(path, index=None)
+
+
+def get_all_repo_urls(topic_df):
+    for i in range(len(topic_df) - 1):
+        every_repo_url.append(topic_df["repo_url"][i])
+
+
+def list_every_repo_url():
+    return every_repo_url
 
 
 # This is the function that will run both files
@@ -99,3 +111,8 @@ def scrape_topics_repos():
 # Runs scraper
 # TODO: run get_all_html_source.py right here before scrpe topic repos
 scrape_topics_repos()
+
+# Uses
+with open("every_repo_url.txt", "w", encoding="utf-8") as f:
+    for x in every_repo_url:
+        f.write(x + "\n")

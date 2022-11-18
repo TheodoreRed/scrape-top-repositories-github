@@ -3,7 +3,8 @@ import os
 
 def read_text_file(file_path):
     with open(file_path, "r") as f:
-        print(f.read())
+        csv_file = f.read()
+        return csv_file
 
 
 def create_list_paths():
@@ -19,9 +20,7 @@ def create_list_paths():
 
 
 csv_file_path_list = create_list_paths()
-
-read_text_file(csv_file_path_list[0])
-
+print(read_text_file(csv_file_path_list[1]))
 
 # TODO: returns a random topics URL
 def get_random_topic_url():

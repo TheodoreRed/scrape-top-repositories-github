@@ -59,6 +59,3 @@ def scrape_topics():
     }
     # Passes dictionary and returns a pandas dataframe
     return pd.DataFrame(topics_dict)
-
-
-print(scrape_topics())
