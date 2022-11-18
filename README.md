@@ -8,7 +8,6 @@ title,description,url
 ```
 username,repo_name,repo_url,stars
 ```
-Working on a way to let users interact with the data it provides on a basic level
 
 ## Packages you'll need to install 
 - `pip install selenium`
@@ -16,7 +15,10 @@ Working on a way to let users interact with the data it provides on a basic leve
 - `pip install requests`
 - `pip install pandas`
 
-## How it works
+## Get it to work
+1. Run `get_all_html_source.py` to return a html file locally
+2. Next, run `topic_page_info.py`. This will run the scraper.
+3. A directory called `data` will be created and .csv files will begin to fill up there.
 
 # Credit
 - Used this [__Base Source Code__](https://jovian.ai/aakashns-6l3/scraping-github-topics-repositories) while following the [__Jovian Python Web Scraping Project__](https://www.youtube.com/watch?v=RKsLLG-bzEY&t=808s) youtube video.
