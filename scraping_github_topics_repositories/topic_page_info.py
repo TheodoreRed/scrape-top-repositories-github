@@ -67,7 +67,14 @@ def get_topic_repos(topic_doc):
     return pd.DataFrame(topic_repos_dict)
 
 
+def write_repo_url_to_text(topic_df):
+    for i in range(len(topic_df) - 1):
+        with open("every_repo_url.txt", "a", encoding="utf-8") as f:
+            f.write(topic_df["repo_url"][i] + "\n")
+
+
 def scrape_topic(topic_url, path):
+
     # If I already have a CSV file with the same name and directory I skip
     if os.path.exists(path):
         print("The file {} already exists. Skipping...".format(path))
@@ -75,8 +82,7 @@ def scrape_topic(topic_url, path):
     # get_topic_page() is passed a url from topics.csv file and returnsa BeautifulSoup object
     # get_topic_repos() is passed that bs4 object where it extracts the data
     topic_df = get_topic_repos(get_topic_page(topic_url))
-    # Fills a list of every repository url
-    get_all_repo_urls(topic_df)
+    write_repo_url_to_text(topic_df)
     # Extracted data is converted to a csv file
     topic_df.to_csv(path, index=None)
 
@@ -84,10 +90,6 @@ def scrape_topic(topic_url, path):
 def get_all_repo_urls(topic_df):
     for i in range(len(topic_df) - 1):
         every_repo_url.append(topic_df["repo_url"][i])
-
-
-def list_every_repo_url():
-    return every_repo_url
 
 
 # This is the function that will run both files
@@ -113,6 +115,7 @@ def scrape_topics_repos():
 scrape_topics_repos()
 
 # Uses
-with open("every_repo_url.txt", "w", encoding="utf-8") as f:
-    for x in every_repo_url:
-        f.write(x + "\n")
+def write_repo_url_to_text(topic_df):
+    for i in range(len(topic_df) - 1):
+        with open("every_repo_url.txt", "a", encoding="utf-8") as f:
+            f.write(topic_df["repo_url"][i] + "\n")
