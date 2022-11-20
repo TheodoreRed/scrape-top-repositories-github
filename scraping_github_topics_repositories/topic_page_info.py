@@ -7,7 +7,6 @@ import os
 # Global variable
 every_repo_url = []
 
-
 # Given a string number that might end in "k" for thousand
 # Returns string as integer
 def parse_star_count(star_str):
@@ -64,13 +63,22 @@ def get_topic_repos(topic_doc):
         topic_repos_dict["repo_name"].append(repo_info[1])
         topic_repos_dict["repo_url"].append(repo_info[2])
         topic_repos_dict["stars"].append(repo_info[3])
+
+        name_of_topic = topic_doc.find("h1", {"class": "h1"}).text.strip()
+        with open("all_Data.csv", "a", encoding="utf-8") as f:
+            f.write(
+                name_of_topic
+                + ","
+                + str(topic_repos_dict["stars"][i])
+                + ","
+                + topic_repos_dict["repo_name"][i]
+                + ","
+                + topic_repos_dict["username"][i]
+                + ","
+                + topic_repos_dict["repo_url"][i]
+                + "\n"
+            )
     return pd.DataFrame(topic_repos_dict)
-
-
-def write_repo_url_to_text(topic_df):
-    for i in range(len(topic_df) - 1):
-        with open("every_repo_url.txt", "a", encoding="utf-8") as f:
-            f.write(topic_df["repo_url"][i] + "\n")
 
 
 def scrape_topic(topic_url, path):
@@ -82,14 +90,8 @@ def scrape_topic(topic_url, path):
     # get_topic_page() is passed a url from topics.csv file and returnsa BeautifulSoup object
     # get_topic_repos() is passed that bs4 object where it extracts the data
     topic_df = get_topic_repos(get_topic_page(topic_url))
-    write_repo_url_to_text(topic_df)
     # Extracted data is converted to a csv file
     topic_df.to_csv(path, index=None)
-
-
-def get_all_repo_urls(topic_df):
-    for i in range(len(topic_df) - 1):
-        every_repo_url.append(topic_df["repo_url"][i])
 
 
 # This is the function that will run both files
@@ -113,9 +115,3 @@ def scrape_topics_repos():
 # Runs scraper
 # TODO: run get_all_html_source.py right here before scrpe topic repos
 scrape_topics_repos()
-
-# Uses
-def write_repo_url_to_text(topic_df):
-    for i in range(len(topic_df) - 1):
-        with open("every_repo_url.txt", "a", encoding="utf-8") as f:
-            f.write(topic_df["repo_url"][i] + "\n")
