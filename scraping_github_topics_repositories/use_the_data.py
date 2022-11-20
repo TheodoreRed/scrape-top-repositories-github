@@ -18,15 +18,48 @@ def get_random_url():
     print(data_dict[rand_num][4])
 
 
-def main():
-    open_data_create_dict()
+def get_top_repo():
+    list_stars = []
+    list_urls = []
+    for x in range(len(data_dict)):
+        list_stars.append(data_dict[x][1])
+        list_urls.append(data_dict[x][4])
+
+    star_url_dict = {"star": list_stars, "url": list_urls}
+    bigNum = 0
+    for idx, num in enumerate(list_stars):
+        if int(num) > bigNum:
+            bigNum = int(num)
+            bigNumid = idx
+    print(
+        "With "
+        + str(bigNum)
+        + " stars, the most popular repository on Github is "
+        + list_urls[bigNumid]
+    )
+
+
+def get_top_10_topics():
+    pass
+
+
+def use_the_data():
     while True:
-        print("Enter 'r' to get a random URL in the top 3600 repositories on Github:")
+        print(
+            "Enter 'r' to get a random URL or '1' to get top repository in the top 3600 repositories on Github:"
+        )
         usr_input = input()
         if usr_input == "r":
             get_random_url()
+        elif usr_input == "1":
+            get_top_repo()
         elif usr_input == "q":
             break
+
+
+def main():
+    open_data_create_dict()
+    use_the_data()
 
 
 if __name__ == "__main__":
