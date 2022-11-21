@@ -3,7 +3,7 @@
 - Automates the process of extracting the top 20 repositories in each topic on `https://github.com/topics`.
 - Takes in user input to interact with the created data.
 # Get it to work
-These are all the packages you'll need install.
+These are all the packages you'll need to install.
 - `pip install selenium`
 - `pip install beautifulsoup4`
 - `pip install requests`
