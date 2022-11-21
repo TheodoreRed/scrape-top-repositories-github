@@ -65,7 +65,7 @@ def get_topic_repos(topic_doc):
         topic_repos_dict["stars"].append(repo_info[3])
 
         name_of_topic = topic_doc.find("h1", {"class": "h1"}).text.strip()
-        with open("all_Data.csv", "a", encoding="utf-8") as f:
+        with open("data_about_repos.csv", "a", encoding="utf-8") as f:
             f.write(
                 name_of_topic
                 + ","
@@ -110,8 +110,3 @@ def scrape_topics_repos():
     for index, row in topics_df.iterrows():
         print('Scraping top repositories for "{}"'.format(row["title"]))
         scrape_topic(row["url"], dir_name + "/{}.csv".format(row["title"]))
-
-
-# Runs scraper
-# TODO: run get_all_html_source.py right here before scrpe topic repos
-scrape_topics_repos()

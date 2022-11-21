@@ -1,10 +1,13 @@
 import random
+import time
+import webbrowser
+
 
 data_dict = {}
 
 
 def open_data_create_dict():
-    with open("all_data.csv", "r", encoding="utf-8") as f:
+    with open("data_about_repos.csv", "r", encoding="utf-8") as f:
         data = f.read()
         data = data.split("\n")
 
@@ -16,6 +19,14 @@ def open_data_create_dict():
 def get_random_url():
     rand_num = random.randint(0, len(data_dict))
     print(data_dict[rand_num][4])
+
+
+def open_random_repo():
+    rand_num = random.randint(0, len(data_dict))
+    url = data_dict[rand_num][4]
+    print("Opening a random repository...")
+    time.sleep(1)
+    webbrowser.open(url)
 
 
 def get_top_repo():
@@ -44,17 +55,21 @@ def get_top_10_topics():
 
 
 def use_the_data():
+
     while True:
         print(
-            "Enter 'r' to get a random URL or '1' to get top repository in the top 3600 repositories on Github:"
+            "Enter: 'r' for random repo - 'open r' to open a random repo - '1' prints top repo - 'q' - to quit"
         )
         usr_input = input()
         if usr_input == "r":
             get_random_url()
         elif usr_input == "1":
             get_top_repo()
+        elif usr_input == "open r":
+            open_random_repo()
         elif usr_input == "q":
             break
+        time.sleep(3)
 
 
 def main():
